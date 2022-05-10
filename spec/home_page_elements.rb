@@ -1,95 +1,85 @@
 require 'rspec'
 require 'watir'
-require 'elements/Objects'
+require 'helper'
+require 'elements/objects'
+require 'shared_context/login_shared'
 
-describe 'Clickability of elements on the home page, searchbar functionality and My Account options' do
-    before :all do
-        @browser = Watir::Browser.new:chrome
-        @browser.window.maximize
-        @browser.goto('https://auction-app-react.herokuapp.com/')
-        sleep 5
-    end
+describe 'Clickability of elements on the home page, search_bar functionality and My Account options' do
+    
+    let(:actions) {@main.methods}
 
-    after :all do
-        @browser.close
-    end
+    include_context 'Login' , "mark44@gmail.com", "bbb" 
 
     context 'Clickability of elements in the header section' do 
 
         it 'Clickability on the Auction icon' do 
-            Objects.logoIcon(@browser)
+            actions.logo_icon
             expect(@browser.url). to eql('https://auction-app-react.herokuapp.com/')
         end
 
         it 'Facebook (header) icon check' do 
-            Objects.facebookHeader(@browser)
-            sleep 4
+            actions.facebook_header
+            sleep 2
             expect(@browser.window(title: 'Facebook').url).to eql("https://www.facebook.com/magicpojska")
         end
 
         it 'Instagram (header) icon check' do 
-            Objects.instagramHeader(@browser)
+            actions.instagram_header
             sleep 2
             expect(@browser.window(title: 'Login • Instagram').url).to eql("https://www.instagram.com/accounts/login/?next=/magic_pojska/")
         end
 
         it 'Twitter (header) icon check' do 
-            Objects.twitterHeader(@browser)
+            actions.twitter_header
             sleep 2
             expect(@browser.window(title: 'Twitter').url).to eql("https://twitter.com/magicpojska")
         end
 
-        it 'Login check' do 
-            Objects.login(@browser,"mark44@gmail.com", "bbb")
-            sleep 2
-            @browser.screenshot.save 'screenshotLogin.png'
-        end
-
         it 'HOME button check' do 
-            Objects.home(@browser)
+            actions.home
             sleep 4
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/')
 
         end
 
         it 'SHOP button check' do 
-            Objects.shopPage(@browser)
+            actions.shop_page
             sleep 2
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/shop/categories/search')
         end
 
         it 'MY ACCOUNT button check' do 
-            Objects.myAccount(@browser)
+            actions.my_account
             sleep 4
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/my-account/profile')
         end
 
         it 'MY ACCOUNT/Seller button check' do 
-            Objects.sellerPage(@browser)
+            actions.seller_page
             sleep 4
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/my-account/seller')
         end
 
         it 'MY ACCOUNT/Bids button check' do 
-            Objects.bidsPage(@browser)
+            actions.bids_page
             sleep 2
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/my-account/bids')
         end
 
         it 'MY ACCOUNT/Wishlist button check' do 
-            Objects.wishlist(@browser)
+            actions.wishlist
             sleep 2
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/my-account/wishlist')
         end
 
         it 'MY ACCOUNT/Settings button check' do 
-            Objects.settings(@browser)
+            actions.settings
             sleep 2
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/my-account/settings')
         end
 
         it 'Logout check' do 
-            Objects.logout(@browser)
+            actions.logout
             @browser.screenshot.save 'screenshotLogout.png'
         end
        
@@ -98,21 +88,21 @@ describe 'Clickability of elements on the home page, searchbar functionality and
     context 'Search bar functionality' do 
 
         it 'Search for regular item' do 
-            Objects.searchBar(@browser, "hoodie")
+            actions.search_bar("hoodie")
             sleep 3
             expect(@browser.text.include?("hoodie")).to be true
         end
 
-        it 'Use searchbar with irregular input' do 
-            Objects.searchBar(@browser, "XyXjcdc")
+        it 'Use search_bar with irregular input' do 
+            actions.search_bar("XyXjcdc")
             sleep 2
             expect(@browser.text.include?("No products to show")).to be true
             sleep 1
-            Objects.homePage(@browser)
+            actions.home_page
         end
 
-        it 'Use searchbar without input' do 
-            Objects.searchBar(@browser, "")
+        it 'Use search_bar without input' do 
+            actions.search_bar("")
             sleep 2
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/shop/categories/search/')
         end
@@ -122,43 +112,43 @@ describe 'Clickability of elements on the home page, searchbar functionality and
     context 'Clickability of elements in the footer section' do 
 
         it 'About Us check' do 
-            Objects.aboutUs(@browser)
+            actions.about_us
             sleep 1
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/about-us')
             sleep 1
-            Objects.homePage(@browser)
+            actions.home_page
         end
 
         it 'Terms and Conditions check' do 
-            Objects.termsAndConditions(@browser)
+            actions.terms_and_conditions
             sleep 1
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/terms-and-conditions')
             sleep 1
-            Objects.homePage(@browser)
+            actions.home_page
         end
 
         it 'Privacy and Policy check' do 
-            Objects.privacyPolicy(@browser)
+            actions.privacy_policy
             sleep 4
             expect(@browser.url).to eql('https://auction-app-react.herokuapp.com/privacy-and-policy')
             sleep 1
-            Objects.homePage(@browser)
+            actions.home_page
         end
 
         it 'Facebook (footer) icon check' do 
-            Objects.facebookFooter(@browser)
+            actions.facebook_footer
             sleep 4
             expect(@browser.window(title: 'Facebook').url).to eql("https://www.facebook.com/magicpojska")
         end
 
         it 'Instagram (footer) icon check' do 
-            Objects.instagramFooter(@browser)
+            actions.instagram_footer
             sleep 2
             expect(@browser.window(title: 'Login • Instagram').url).to eql("https://www.instagram.com/accounts/login/?next=/magic_pojska/")
         end
 
         it 'Twitter (footer) icon check' do 
-            Objects.twitterFooter(@browser)
+            actions.twitter_footer
             sleep 2
             expect(@browser.window(title: 'Twitter').url).to eql("https://twitter.com/magicpojska")
         end
