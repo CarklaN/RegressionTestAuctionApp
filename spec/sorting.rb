@@ -1,4 +1,3 @@
-require 'rspec'
 require 'watir'
 require 'helper'
 require 'elements/objects'
@@ -6,7 +5,7 @@ require 'shared_context/login_shared'
 
 describe 'Test sorting options available on SHOP page' do
     
-    let(:actions) {@main.methods}
+    let(:actions) { @main.methods }
 
     context 'Check sorting options' do 
 

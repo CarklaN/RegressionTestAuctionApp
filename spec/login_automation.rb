@@ -1,4 +1,3 @@
-require 'rspec'
 require 'watir'
 require 'roo'
 require 'helper'
@@ -10,7 +9,7 @@ LOGIN_URL='https://auction-app-react.herokuapp.com/login'
 
 describe 'Using external file for login automation' do
 
-    let(:actions) {@main.methods}
+    let(:actions) { @main.methods }
 
     context 'Login automation with credentials from external file' do 
 

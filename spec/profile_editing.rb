@@ -1,4 +1,3 @@
-require 'rspec'
 require 'watir'
 require 'helper'
 require 'elements/objects'
@@ -6,7 +5,7 @@ require 'shared_context/login_shared'
 
 describe 'My Account editing' do
 
-    let(:actions) {@main.methods}
+    let(:actions) { @main.methods }
 
     include_context 'Login' , "mark44@gmail.com", "bbb" 
 

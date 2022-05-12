@@ -1,4 +1,3 @@
-require 'rspec'
 require 'watir'
 require 'helper'
 require 'elements/objects'
@@ -6,7 +5,7 @@ require 'shared_context/login_shared'
 
 describe 'Test Categories and Subcategories' do
 
-    let(:actions) {@main.methods}
+    let(:actions) { @main.methods }
 
     context 'Test categories response' do
 
